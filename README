@@ -1,0 +1,38 @@
+----> Intially created 2 folder of 
+1. frontend 
+2. backend
+
+---
+
+-->started work from backend
+installer few packages such as
+
+1. express
+2. mongoose
+3. dotenv
+
+--------->created .env file
+
+1. declared MONGO_DB variable which takes mongo connect url
+
+----->then created src folder which container
+
+1. server
+
+- imported express
+- impoer dotenv
+- imported mongoose
+- started app on a port
+- connected the mongoose db
+
+2. config
+
+- created a sync function and connecting throght mongoose.connect
+
+3. controllers
+
+- created a notesController in it created func for return data
+
+4. routes
+
+- created a notesRoute in it we have created each api which are related same route
