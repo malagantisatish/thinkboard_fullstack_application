@@ -5,16 +5,25 @@ import dotenv from "dotenv";
 import rateLimit from "./config/upstash.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 import cors from "cors"
+import path from "path"
+
 
 dotenv.config()
 
 const app = express();
 
+const _dirname = path.resolve()
+
 // ORDER IS IMPORTANT
 
-app.use(cors(
-    { origin: "http://localhost:5173" }
-))
+
+if (process.env.NODE_ENV !== "production") {
+    app.use(cors(
+        { origin: "http://localhost:5173" }
+    ))
+}
+
+
 //middlewares
 app.use(express.json())// this middleware will parse JSON bodies:req.body so that we can access req body
 
@@ -27,6 +36,15 @@ app.use(rateLimiter)
 // })
 
 app.use("/api/notes", notesRoute); // we build seperate route each category
+
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(_dirname, "../frontend/dist")))
+
+    app.get("*", (req, res) => {
+        res.sendFile(path.join(_dirname, "../frontend", "dist", "index.html"))
+    })
+}
 
 connectDB().then(() => {
     app.listen(process.env.PORT, () => {
