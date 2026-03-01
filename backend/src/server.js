@@ -2,7 +2,6 @@ import express from "express";
 import notesRoute from "./routes/notesRoute.js"
 import { connectDB } from "./config/db.js"
 import dotenv from "dotenv";
-import rateLimit from "./config/upstash.js";
 import rateLimiter from "./middleware/rateLimiter.js";
 import cors from "cors"
 import path from "path"
@@ -11,7 +10,7 @@ import path from "path"
 dotenv.config()
 
 const app = express();
-
+const PORT = process.env.PORT || 5001;
 const _dirname = path.resolve()
 
 // ORDER IS IMPORTANT
@@ -47,7 +46,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 connectDB().then(() => {
-    app.listen(process.env.PORT, () => {
+    app.listen(PORT, () => {
         console.log("Server started on PORT:5001")
     });
 })
