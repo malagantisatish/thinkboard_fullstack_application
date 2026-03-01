@@ -12,6 +12,7 @@ export interface NoteCardTy {
 }
 
 const NoteCard = ({ noteDetails, setNotes }: NoteCardTy) => {
+    const createdAt = new Date(noteDetails.createdAt);
     const handleDelete = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         if (!window.confirm("Are you sure you want to delete this note?")) return
@@ -38,7 +39,7 @@ const NoteCard = ({ noteDetails, setNotes }: NoteCardTy) => {
                 <p className='text-base-content/70 line-clamp-3'>{noteDetails.content}</p>
                 <div className='card-actions justify-between items-center mt-4'>
                     <span className='text-sm text-base-content/60'>
-                        {noteDetails.createdAt}
+                        {createdAt.toLocaleString()}
                     </span>
                     <div className='flex items-center gap-10'>
                         <PenSquareIcon className='size-4' />
